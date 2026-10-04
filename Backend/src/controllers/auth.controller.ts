@@ -5,7 +5,7 @@ import { signinservice, signupservice } from "../services/auth.service";
 export async function signupController(req: Request, res: Response) {
     try {
         const response = await signupservice(req.body)
-        res.cookie("token", response.token, { httpOnly: true, secure: true, sameSite: "none" })
+        res.cookie("token", `Bearer ${response.token}`, { httpOnly: true, secure: true, sameSite: "strict" })
 
         return res.status(201).json({
             message: "User registered successfully",
@@ -21,7 +21,7 @@ export async function signupController(req: Request, res: Response) {
 export async function signinController(req: Request, res: Response) {
     try {
         const response = await signinservice(req.body);
-        res.cookie("token", response.token, { httpOnly: true, secure: true, sameSite: "none" })
+        res.cookie("token",`Bearer ${response.token}`, { httpOnly: true, secure: true, sameSite: "strict" })
 
         return res.status(200).json({
             message: "User signin successfully",
